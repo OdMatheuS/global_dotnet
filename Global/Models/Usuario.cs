@@ -3,9 +3,8 @@
 namespace Global.Models
 {
     [Table("TB_USUARIO")]
-    public class Usuario 
+    public class Usuario
     {
-        [Column("Id")]
         public int Id { get; set; }
         public string? Nome { get; set; }
         public int Idade { get; set; }
@@ -15,7 +14,8 @@ namespace Global.Models
         public bool PraticaEsporte { get; set; }
         public string? HabitosSaude { get; set; }
 
-
+        // Adicione uma propriedade de navegação para DadosSuplementaresUsr
+        public DadosSuplementaresUsr DadosSuplementares { get; set; }
 
     }
 }

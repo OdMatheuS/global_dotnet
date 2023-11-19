@@ -1,7 +1,7 @@
 ﻿@model List<Usuario>
 
 @{
-    ViewData["Title"] = "Listagem de Usuario";
+    ViewData["Title"] = "Listagem de Usuário";
 }
 
 @if (TempData["msg"] != null)
@@ -14,10 +14,15 @@
 <h1>Listagem de Usuário</h1>
 
 <br />
-<h3>Pesquisar Usuário</h3>
-<form method="get" asp-action="BuscarPorNome" asp-controller="Usuario">
-    <input type="text" name="nomeItem" placeholder="Digite o nome do usuário" />
-    <button type="submit">Buscar</button>
+<h5>Pesquisar usuário pelo nome</h5>
+<form class="row mb-3" asp-action="BuscarPorNome" asp-controller="Usuario" method="get">
+    <div class="col-4">
+        <input type="text" class="form-control" name="valor"
+               placeholder="Digite o nome" />
+    </div>
+    <div class="col-2">
+        <button class="btn btn-primary">Pesquisar</button>
+    </div>
 </form>
 <br />
 
