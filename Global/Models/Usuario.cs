@@ -14,8 +14,10 @@ namespace Global.Models
         public bool PraticaEsporte { get; set; }
         public string? HabitosSaude { get; set; }
 
+        public IList<UsuarioAtualizacaoSaudePub> UsuarioAtualizacaoSaudePublicas { get; set; }
+
         // propriedade de navegação para DadosSuplementaresUsr
         //public DadosSuplementaresUsr DadosSuplementares { get; set; }
-        
+
     }
 }
