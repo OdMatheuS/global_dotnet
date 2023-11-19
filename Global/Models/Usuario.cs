@@ -14,8 +14,8 @@ namespace Global.Models
         public bool PraticaEsporte { get; set; }
         public string? HabitosSaude { get; set; }
 
-        // Adicione uma propriedade de navegação para DadosSuplementaresUsr
-        public DadosSuplementaresUsr DadosSuplementares { get; set; }
-
+        // propriedade de navegação para DadosSuplementaresUsr
+        //public DadosSuplementaresUsr DadosSuplementares { get; set; }
+        
     }
 }

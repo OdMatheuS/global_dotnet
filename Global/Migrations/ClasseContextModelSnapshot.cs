@@ -21,12 +21,42 @@ namespace Global.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Global.Models.DadosSuplementaresUsr", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Altura")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Idade")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Peso")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Sexo")
+                        .HasColumnType("nvarchar(1)");
+
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId")
+                        .IsUnique();
+
+                    b.ToTable("TB_DADOS_SUPLE_USR");
+                });
+
             modelBuilder.Entity("Global.Models.Usuario", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("Id");
+                        .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
@@ -54,6 +84,23 @@ namespace Global.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TB_USUARIO");
+                });
+
+            modelBuilder.Entity("Global.Models.DadosSuplementaresUsr", b =>
+                {
+                    b.HasOne("Global.Models.Usuario", "Usuario")
+                        .WithOne("DadosSuplementares")
+                        .HasForeignKey("Global.Models.DadosSuplementaresUsr", "UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("Global.Models.Usuario", b =>
+                {
+                    b.Navigation("DadosSuplementares")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

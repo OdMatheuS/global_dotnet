@@ -15,10 +15,13 @@ namespace Global.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // relacionamento 1:1 entre Usuario e DadosSuplementaresUsr
+            /*
             modelBuilder.Entity<Usuario>()
                 .HasOne(u => u.DadosSuplementares)
                 .WithOne(d => d.Usuario)
-                .HasForeignKey<DadosSuplementaresUsr>(d => d.UsuarioId);
+                .HasForeignKey<DadosSuplementaresUsr>(d => d.Id);
+            */
+
         }
 
 

@@ -28,11 +28,43 @@ namespace Global.Migrations
                 {
                     table.PrimaryKey("PK_TB_USUARIO", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "TB_DADOS_SUPLE_USR",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Altura = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Peso = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Sexo = table.Column<string>(type: "nvarchar(1)", nullable: true),
+                    Idade = table.Column<int>(type: "int", nullable: false),
+                    UsuarioId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TB_DADOS_SUPLE_USR", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TB_DADOS_SUPLE_USR_TB_USUARIO_UsuarioId",
+                        column: x => x.UsuarioId,
+                        principalTable: "TB_USUARIO",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TB_DADOS_SUPLE_USR_UsuarioId",
+                table: "TB_DADOS_SUPLE_USR",
+                column: "UsuarioId",
+                unique: true);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "TB_DADOS_SUPLE_USR");
+
             migrationBuilder.DropTable(
                 name: "TB_USUARIO");
         }
