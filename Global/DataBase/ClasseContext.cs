@@ -24,6 +24,7 @@ namespace Global.Models
                 .HasForeignKey<DadosSuplementaresUsr>(d => d.Id);
             */
 
+            /*
             //WIP
             //chave composta da tabela associativa
             modelBuilder.Entity<UsuarioAtualizacaoSaudePub>()
@@ -44,7 +45,7 @@ namespace Global.Models
                .HasForeignKey(f => f.AtualizacaoSaudePubId);
 
             base.OnModelCreating(modelBuilder);
-
+            */
         }
 
 

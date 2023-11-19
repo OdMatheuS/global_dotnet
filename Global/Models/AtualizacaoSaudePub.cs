@@ -10,7 +10,7 @@ namespace Global.Models
         [DataType(DataType.Date)]
         public DateTime DataInfoSaude { get; set; }
 
-        public IList<UsuarioAtualizacaoSaudePub> UsuarioAtualizacaoSaudePublicas { get; set; }
+//        public IList<UsuarioAtualizacaoSaudePub> UsuarioAtualizacaoSaudePublicas { get; set; }
 
         // chave estrangeira para Usuario
         //public int Id { get; set; }

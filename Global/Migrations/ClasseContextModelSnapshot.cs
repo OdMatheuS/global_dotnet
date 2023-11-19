@@ -105,46 +105,15 @@ namespace Global.Migrations
 
             modelBuilder.Entity("Global.Models.UsuarioAtualizacaoSaudePub", b =>
                 {
-                    b.Property<int>("UsuarioId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("AtualizacaoSaudePubId")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.HasKey("UsuarioId", "AtualizacaoSaudePubId");
-
-                    b.HasIndex("AtualizacaoSaudePubId");
+                    b.HasKey("Id");
 
                     b.ToTable("TB_Usuario_Atualizacao_Saude_Pub");
-                });
-
-            modelBuilder.Entity("Global.Models.UsuarioAtualizacaoSaudePub", b =>
-                {
-                    b.HasOne("Global.Models.AtualizacaoSaudePub", "AtualizacaoSaudePubs")
-                        .WithMany("UsuarioAtualizacaoSaudePublicas")
-                        .HasForeignKey("AtualizacaoSaudePubId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Global.Models.Usuario", "Usuarios")
-                        .WithMany("UsuarioAtualizacaoSaudePublicas")
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AtualizacaoSaudePubs");
-
-                    b.Navigation("Usuarios");
-                });
-
-            modelBuilder.Entity("Global.Models.AtualizacaoSaudePub", b =>
-                {
-                    b.Navigation("UsuarioAtualizacaoSaudePublicas");
-                });
-
-            modelBuilder.Entity("Global.Models.Usuario", b =>
-                {
-                    b.Navigation("UsuarioAtualizacaoSaudePublicas");
                 });
 #pragma warning restore 612, 618
         }

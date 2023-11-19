@@ -65,46 +65,29 @@ namespace Global.Migrations
                 name: "TB_Usuario_Atualizacao_Saude_Pub",
                 columns: table => new
                 {
-                    UsuarioId = table.Column<int>(type: "int", nullable: false),
-                    AtualizacaoSaudePubId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TB_Usuario_Atualizacao_Saude_Pub", x => new { x.UsuarioId, x.AtualizacaoSaudePubId });
-                    table.ForeignKey(
-                        name: "FK_TB_Usuario_Atualizacao_Saude_Pub_AtualizacaoSaudePubs_AtualizacaoSaudePubId",
-                        column: x => x.AtualizacaoSaudePubId,
-                        principalTable: "AtualizacaoSaudePubs",
-                        principalColumn: "AtualizacaoSaudePubId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TB_Usuario_Atualizacao_Saude_Pub_TB_USUARIO_UsuarioId",
-                        column: x => x.UsuarioId,
-                        principalTable: "TB_USUARIO",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_TB_Usuario_Atualizacao_Saude_Pub", x => x.Id);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TB_Usuario_Atualizacao_Saude_Pub_AtualizacaoSaudePubId",
-                table: "TB_Usuario_Atualizacao_Saude_Pub",
-                column: "AtualizacaoSaudePubId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "TB_DADOS_SUPLE_USR");
-
-            migrationBuilder.DropTable(
-                name: "TB_Usuario_Atualizacao_Saude_Pub");
-
-            migrationBuilder.DropTable(
                 name: "AtualizacaoSaudePubs");
 
             migrationBuilder.DropTable(
+                name: "TB_DADOS_SUPLE_USR");
+
+            migrationBuilder.DropTable(
                 name: "TB_USUARIO");
+
+            migrationBuilder.DropTable(
+                name: "TB_Usuario_Atualizacao_Saude_Pub");
         }
     }
 }
