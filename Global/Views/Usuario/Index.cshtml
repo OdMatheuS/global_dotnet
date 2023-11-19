@@ -34,7 +34,7 @@
                 <td>@item.Altura</td>
                 <td>@item.TempoSono</td>
                 <td>@item.HabitosSaude</td>
-                <td>@(item.PraticaEsporte ? "Sim" : "Não")</td>
+                <td>@item.PraticaEsporte</td>
                 <td>
                     <a asp-action="Editar" asp-route-id="@item.Id" class="btn btn-primary">Editar</a>
                     <button onclick="click.value = @item.Id" type="button" class="btn btn-danger" data-bs-toggle="modal"

@@ -1,0 +1,30 @@
+﻿@model Usuario
+
+@{
+    ViewData["Title"] = "Editar Usuario";
+}
+
+@if (TempData["msg"] != null)
+{
+    <div id="mensagemSucesso" class="alert alert-success">
+        @TempData["msg"]
+    </div>
+}
+
+<h1>Editar Usuario</h1>
+
+<a asp-action="Listar">Usuários</a>
+<form asp-action="Editar">
+    <partial name="_Form"></partial>
+    <botao texto="Editar"></botao>
+</form>
+
+<script>
+    setTimeout(function () {
+        var mensagemSucesso = document.getElementById('mensagemSucesso');
+        if (mensagemSucesso) {
+            mensagemSucesso.style.display = 'none';
+        }
+    }, 3000);
+</script>
+
