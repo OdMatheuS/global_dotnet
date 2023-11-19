@@ -1,7 +1,11 @@
-﻿namespace Global.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Global.Models
 {
-    public class Usuario
+    [Table("TB_USUARIO")]
+    public class Usuario 
     {
+        [Column("Id")]
         public int Id { get; set; }
         public string? Nome { get; set; }
         public int Idade { get; set; }

@@ -1,7 +1,15 @@
+using Global.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System.Runtime.Serialization;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+var cnn = builder.Configuration.GetConnectionString("conexao");
+builder.Services.AddDbContext<ClasseContext>(ops => ops.UseSqlServer(cnn));
 
 var app = builder.Build();
 
