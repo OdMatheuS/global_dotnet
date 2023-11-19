@@ -7,6 +7,7 @@ namespace Global.Models
         public int AtualizacaoSaudePubId { get; set; }
         public string? Titulo { get; set; }
         public string? Descricao { get; set; }
+
         [DataType(DataType.Date)]
         public DateTime DataInfoSaude { get; set; }
 

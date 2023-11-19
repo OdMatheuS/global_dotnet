@@ -1,0 +1,85 @@
+﻿@model List<Global.Models.AtualizacaoSaudePub>
+
+<h2>Lista de Atualizações de Saúde Pública</h2>
+
+@if (TempData["msg"] != null)
+{
+    <div id="mensagemSucesso" class="alert alert-success">
+        @TempData["msg"]
+    </div>
+}
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Descrição</th>
+            <th>Data da Informação de Saúde</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <br />
+        <h5>Pesquisar Campanha pelo Titulo</h5>
+        <form class="row mb-3" asp-action="BuscarPorNomeCampanha" asp-controller="AtualizacaoSaudePub" method="get" align-items="center">
+            <div class="d-flex flex-row">
+                <div class="col-4" style="margin-right:1rem">
+                    <input type="text" class="form-control" name="valor"
+                           placeholder="Digite o Titulo da Campanha" />
+                </div>
+                <div class="col-2 ml-2">
+                    <button class="btn btn-primary">Pesquisar</button>
+                </div>
+            </div>
+        </form>
+
+
+        <br />
+        @foreach (var atualizacao in Model)
+        {
+            <tr>
+                <td>@atualizacao.AtualizacaoSaudePubId</td>
+                <td>@atualizacao.Titulo</td>
+                <td>@atualizacao.Descricao</td>
+                <td>@atualizacao.DataInfoSaude.ToString("dd/MM/yyyy")</td>
+                <td>
+                    <a asp-action="Editar" asp-route-id="@atualizacao.AtualizacaoSaudePubId" class="btn btn-primary">Editar</a>
+                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalExcluir_@atualizacao.AtualizacaoSaudePubId">
+                        Excluir
+                    </button>
+                </td>
+            </tr>
+            <!-- modal de excluir -->
+            <div class="modal fade" id="modalExcluir_@atualizacao.AtualizacaoSaudePubId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Confirmação de Exclusão</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Deseja realmente excluir a Atualização de Saúde Pública "@atualizacao.Titulo"?
+                        </div>
+                        <div class="modal-footer">
+                            <form asp-action="Excluir" asp-route-id="@atualizacao.AtualizacaoSaudePubId" method="post">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-danger">Excluir</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </tbody>
+</table>
+
+<script>
+    setTimeout(function () {
+        var mensagemSucesso = document.getElementById('mensagemSucesso');
+        if (mensagemSucesso) {
+            mensagemSucesso.style.display = 'none';
+        }
+    }, 3000);
+</script>
