@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.Extensions.Hosting;
+using System.ComponentModel.DataAnnotations;
 
 namespace Global.Models
 {
@@ -11,7 +12,10 @@ namespace Global.Models
         [DataType(DataType.Date)]
         public DateTime DataInfoSaude { get; set; }
 
-//        public IList<UsuarioAtualizacaoSaudePub> UsuarioAtualizacaoSaudePublicas { get; set; }
+        public List<Usuario> Posts { get; } = new();
+        public List<UsuarioAtualizacaoSaudePub> PostTags { get; } = new();
+
+        //        public IList<UsuarioAtualizacaoSaudePub> UsuarioAtualizacaoSaudePublicas { get; set; }
 
         // chave estrangeira para Usuario
         //public int Id { get; set; }

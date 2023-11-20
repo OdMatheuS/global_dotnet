@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Azure;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection.Metadata;
 
 namespace Global.Models
@@ -15,6 +16,12 @@ namespace Global.Models
         public bool PraticaEsporte { get; set; }
         public string? HabitosSaude { get; set; }
         public DadosSuplementaresUsr? DadosSuplementares { get; set; }
+                
+        public List<AtualizacaoSaudePub> Tags { get; } = new();
+
+        public List<UsuarioAtualizacaoSaudePub> PostTags { get; } = new();
+
+
 
         //public IList<UsuarioAtualizacaoSaudePub> UsuarioAtualizacaoSaudePublicas { get; set; }
 

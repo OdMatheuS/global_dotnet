@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Azure;
+using Microsoft.Extensions.Hosting;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Global.Models
 {
@@ -7,6 +9,14 @@ namespace Global.Models
     {
 
         public int Id { get; set; }
+
+        public int UsuarioId { get; set; }
+        public int AtSaudePubId { get; set; }
+        
+        public Usuario Post { get; set; } = null!;
+        public AtualizacaoSaudePub Tag { get; set; } = null!;
+
+
         //public Usuario Usuarios { get; set; }
         //public int UsuarioId { get; set; }
 

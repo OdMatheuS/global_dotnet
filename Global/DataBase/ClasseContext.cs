@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using System.Reflection.Metadata;
 
 namespace Global.Models
@@ -52,7 +53,13 @@ namespace Global.Models
                 .HasOne(e => e.DadosSuplementares)
             .WithOne(e => e.Usuario)
                 .HasForeignKey<DadosSuplementaresUsr>(e => e.UsuarioId)
-                .IsRequired();
+            .IsRequired();
+
+
+            modelBuilder.Entity<Usuario>()
+                .HasMany(e => e.Tags)
+                .WithMany(e => e.Posts);
+
             base.OnModelCreating(modelBuilder);
         }
 
