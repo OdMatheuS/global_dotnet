@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Global.Migrations
 {
     [DbContext(typeof(ClasseContext))]
-    [Migration("20231120194620_BancoInicial")]
+    [Migration("20231120202058_BancoInicial")]
     partial class BancoInicial
     {
         /// <inheritdoc />
@@ -24,6 +24,21 @@ namespace Global.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("AtualizacaoSaudePubUsuario", b =>
+                {
+                    b.Property<int>("PostsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagsAtualizacaoSaudePubId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PostsId", "TagsAtualizacaoSaudePubId");
+
+                    b.HasIndex("TagsAtualizacaoSaudePubId");
+
+                    b.ToTable("AtualizacaoSaudePubUsuario");
+                });
 
             modelBuilder.Entity("Global.Models.AtualizacaoSaudePub", b =>
                 {
@@ -120,9 +135,37 @@ namespace Global.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AtSaudePubId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagAtualizacaoSaudePubId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("TagAtualizacaoSaudePubId");
+
+                    b.HasIndex("UsuarioId");
+
                     b.ToTable("TB_Usuario_Atualizacao_Saude_Pub");
+                });
+
+            modelBuilder.Entity("AtualizacaoSaudePubUsuario", b =>
+                {
+                    b.HasOne("Global.Models.Usuario", null)
+                        .WithMany()
+                        .HasForeignKey("PostsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Global.Models.AtualizacaoSaudePub", null)
+                        .WithMany()
+                        .HasForeignKey("TagsAtualizacaoSaudePubId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Global.Models.DadosSuplementaresUsr", b =>
@@ -136,9 +179,35 @@ namespace Global.Migrations
                     b.Navigation("Usuario");
                 });
 
+            modelBuilder.Entity("Global.Models.UsuarioAtualizacaoSaudePub", b =>
+                {
+                    b.HasOne("Global.Models.AtualizacaoSaudePub", "Tag")
+                        .WithMany("PostTags")
+                        .HasForeignKey("TagAtualizacaoSaudePubId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Global.Models.Usuario", "Post")
+                        .WithMany("PostTags")
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+
+                    b.Navigation("Tag");
+                });
+
+            modelBuilder.Entity("Global.Models.AtualizacaoSaudePub", b =>
+                {
+                    b.Navigation("PostTags");
+                });
+
             modelBuilder.Entity("Global.Models.Usuario", b =>
                 {
                     b.Navigation("DadosSuplementares");
+
+                    b.Navigation("PostTags");
                 });
 #pragma warning restore 612, 618
         }

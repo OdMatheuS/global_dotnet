@@ -46,15 +46,27 @@ namespace Global.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TB_Usuario_Atualizacao_Saude_Pub",
+                name: "AtualizacaoSaudePubUsuario",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
+                    PostsId = table.Column<int>(type: "int", nullable: false),
+                    TagsAtualizacaoSaudePubId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TB_Usuario_Atualizacao_Saude_Pub", x => x.Id);
+                    table.PrimaryKey("PK_AtualizacaoSaudePubUsuario", x => new { x.PostsId, x.TagsAtualizacaoSaudePubId });
+                    table.ForeignKey(
+                        name: "FK_AtualizacaoSaudePubUsuario_AtualizacaoSaudePubs_TagsAtualizacaoSaudePubId",
+                        column: x => x.TagsAtualizacaoSaudePubId,
+                        principalTable: "AtualizacaoSaudePubs",
+                        principalColumn: "AtualizacaoSaudePubId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AtualizacaoSaudePubUsuario_TB_USUARIO_PostsId",
+                        column: x => x.PostsId,
+                        principalTable: "TB_USUARIO",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -80,24 +92,69 @@ namespace Global.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "TB_Usuario_Atualizacao_Saude_Pub",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UsuarioId = table.Column<int>(type: "int", nullable: false),
+                    AtSaudePubId = table.Column<int>(type: "int", nullable: false),
+                    TagAtualizacaoSaudePubId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TB_Usuario_Atualizacao_Saude_Pub", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TB_Usuario_Atualizacao_Saude_Pub_AtualizacaoSaudePubs_TagAtualizacaoSaudePubId",
+                        column: x => x.TagAtualizacaoSaudePubId,
+                        principalTable: "AtualizacaoSaudePubs",
+                        principalColumn: "AtualizacaoSaudePubId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TB_Usuario_Atualizacao_Saude_Pub_TB_USUARIO_UsuarioId",
+                        column: x => x.UsuarioId,
+                        principalTable: "TB_USUARIO",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AtualizacaoSaudePubUsuario_TagsAtualizacaoSaudePubId",
+                table: "AtualizacaoSaudePubUsuario",
+                column: "TagsAtualizacaoSaudePubId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_TB_DADOS_SUPLE_USR_UsuarioId",
                 table: "TB_DADOS_SUPLE_USR",
                 column: "UsuarioId",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TB_Usuario_Atualizacao_Saude_Pub_TagAtualizacaoSaudePubId",
+                table: "TB_Usuario_Atualizacao_Saude_Pub",
+                column: "TagAtualizacaoSaudePubId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TB_Usuario_Atualizacao_Saude_Pub_UsuarioId",
+                table: "TB_Usuario_Atualizacao_Saude_Pub",
+                column: "UsuarioId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AtualizacaoSaudePubs");
+                name: "AtualizacaoSaudePubUsuario");
 
             migrationBuilder.DropTable(
                 name: "TB_DADOS_SUPLE_USR");
 
             migrationBuilder.DropTable(
                 name: "TB_Usuario_Atualizacao_Saude_Pub");
+
+            migrationBuilder.DropTable(
+                name: "AtualizacaoSaudePubs");
 
             migrationBuilder.DropTable(
                 name: "TB_USUARIO");
