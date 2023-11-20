@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection.Metadata;
 
 namespace Global.Models
 {
@@ -13,6 +14,7 @@ namespace Global.Models
         public decimal TempoSono { get; set; }
         public bool PraticaEsporte { get; set; }
         public string? HabitosSaude { get; set; }
+        public DadosSuplementaresUsr? DadosSuplementares { get; set; }
 
         //public IList<UsuarioAtualizacaoSaudePub> UsuarioAtualizacaoSaudePublicas { get; set; }
 

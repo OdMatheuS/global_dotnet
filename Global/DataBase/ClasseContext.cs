@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata;
 
 namespace Global.Models
 {
@@ -46,6 +47,13 @@ namespace Global.Models
 
             base.OnModelCreating(modelBuilder);
             */
+
+            modelBuilder.Entity<Usuario>()
+                .HasOne(e => e.DadosSuplementares)
+            .WithOne(e => e.Usuario)
+                .HasForeignKey<DadosSuplementaresUsr>(e => e.UsuarioId)
+                .IsRequired();
+            base.OnModelCreating(modelBuilder);
         }
 
 
