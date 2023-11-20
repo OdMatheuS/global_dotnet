@@ -1,0 +1,84 @@
+﻿@model List<DadosSuplementaresUsr>
+
+@{
+    ViewData["Title"] = "Listagem Dados Suplementares";
+}
+
+@if (TempData["msg"] != null)
+{
+    <div id="mensagemSucesso" class="alert alert-success">
+        @TempData["msg"]
+    </div>
+}
+
+<h1>Listagem Dados Suplementares</h1>
+
+
+
+@if (Model != null && Model.Count > 0)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Idade</th>
+                <th>Peso</th>
+                <th>Altura</th>
+                <th>Sexo</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.DadosSuplementaresUsrId</td>
+                    <td>@user.Idade</td>
+                    <td>@user.Peso</td>
+                    <td>@user.Altura</td>
+                    <td>@user.Sexo</td>
+                    <td></td>
+                    <td>
+                        <a asp-action="Editar" asp-route-id="@user.DadosSuplementaresUsrId" class="btn btn-primary">Editar</a>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalExcluir_@user.DadosSuplementaresUsrId">
+                            Excluir
+                        </button>
+                    </td>
+                </tr>
+                <!-- modal de excluir -->
+                <div class="modal fade" id="modalExcluir_@user.DadosSuplementaresUsrId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Confirmação de Exclusão</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Deseja realmente excluir o usuário "@user.DadosSuplementaresUsrId"?
+                            </div>
+                            <div class="modal-footer">
+                                <form asp-action="Excluir" asp-route-id="@user.DadosSuplementaresUsrId" method="post">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-danger">Excluir</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Nenhum dado encontrado.</p>
+}
+
+<script>
+    setTimeout(function () {
+        var mensagemSucesso = document.getElementById('mensagemSucesso');
+        if (mensagemSucesso) {
+            mensagemSucesso.style.display = 'none';
+        }
+    }, 3000);
+</script>
