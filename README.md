@@ -1,5 +1,3 @@
-# global_dotnet
-
 # HealthHub
 
 ## Introdução
