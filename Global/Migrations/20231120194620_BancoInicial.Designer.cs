@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Global.Migrations
 {
     [DbContext(typeof(ClasseContext))]
-    [Migration("20231119225049_BancoInicial")]
+    [Migration("20231120194620_BancoInicial")]
     partial class BancoInicial
     {
         /// <inheritdoc />
@@ -64,10 +64,16 @@ namespace Global.Migrations
                     b.Property<decimal>("Peso")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Sexo")
-                        .HasColumnType("nvarchar(1)");
+                    b.Property<int>("Sexo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
 
                     b.HasKey("DadosSuplementaresUsrId");
+
+                    b.HasIndex("UsuarioId")
+                        .IsUnique();
 
                     b.ToTable("TB_DADOS_SUPLE_USR");
                 });
@@ -117,6 +123,22 @@ namespace Global.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TB_Usuario_Atualizacao_Saude_Pub");
+                });
+
+            modelBuilder.Entity("Global.Models.DadosSuplementaresUsr", b =>
+                {
+                    b.HasOne("Global.Models.Usuario", "Usuario")
+                        .WithOne("DadosSuplementares")
+                        .HasForeignKey("Global.Models.DadosSuplementaresUsr", "UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("Global.Models.Usuario", b =>
+                {
+                    b.Navigation("DadosSuplementares");
                 });
 #pragma warning restore 612, 618
         }
