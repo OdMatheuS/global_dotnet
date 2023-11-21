@@ -25,6 +25,9 @@ namespace Global.Models
         public int AtSaudePubId { get; set; }
         public List<UsuarioAtualizacaoSaudePub>? ListaUsuarioAtualizacaoSaudePub { get; } = new();
 
+        // propriedade de navegação para a relação One-to-Many
+        public List<InfosSaudeUsr>? ListaInfosSaude { get; } = new();
+
 
 
         //public IList<UsuarioAtualizacaoSaudePub> UsuarioAtualizacaoSaudePublicas { get; set; }

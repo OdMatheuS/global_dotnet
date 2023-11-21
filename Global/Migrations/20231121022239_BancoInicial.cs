@@ -12,6 +12,34 @@ namespace Global.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "DuvidasUsuario",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Pergunta = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Resposta = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DuvidasUsuario", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SugestoesSaude",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Sugestao = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DataSugestao = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SugestoesSaude", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AtualizacaoSaudePubs",
                 columns: table => new
                 {
@@ -50,6 +78,28 @@ namespace Global.Migrations
                         column: x => x.AtSaudePubId,
                         principalTable: "AtualizacaoSaudePubs",
                         principalColumn: "AtualizacaoSaudePubId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "InfosSaudeUsr",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    HabitosSaude = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Alimentacao = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HorasSono = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    UsuarioId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InfosSaudeUsr", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_InfosSaudeUsr_TB_USUARIO_UsuarioId",
+                        column: x => x.UsuarioId,
+                        principalTable: "TB_USUARIO",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -117,6 +167,11 @@ namespace Global.Migrations
                 column: "UsuarioId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_InfosSaudeUsr_UsuarioId",
+                table: "InfosSaudeUsr",
+                column: "UsuarioId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TB_DADOS_SUPLE_USR_UsuarioId",
                 table: "TB_DADOS_SUPLE_USR",
                 column: "UsuarioId",
@@ -156,6 +211,15 @@ namespace Global.Migrations
             migrationBuilder.DropForeignKey(
                 name: "FK_AtualizacaoSaudePubs_TB_USUARIO_UsuarioId",
                 table: "AtualizacaoSaudePubs");
+
+            migrationBuilder.DropTable(
+                name: "DuvidasUsuario");
+
+            migrationBuilder.DropTable(
+                name: "InfosSaudeUsr");
+
+            migrationBuilder.DropTable(
+                name: "SugestoesSaude");
 
             migrationBuilder.DropTable(
                 name: "TB_DADOS_SUPLE_USR");

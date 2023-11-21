@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Global.Migrations
 {
     [DbContext(typeof(ClasseContext))]
-    [Migration("20231121013641_BancoInicial")]
+    [Migration("20231121022239_BancoInicial")]
     partial class BancoInicial
     {
         /// <inheritdoc />
@@ -81,6 +81,71 @@ namespace Global.Migrations
                         .IsUnique();
 
                     b.ToTable("TB_DADOS_SUPLE_USR");
+                });
+
+            modelBuilder.Entity("Global.Models.DuvidasUsuario", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Pergunta")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Resposta")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DuvidasUsuario");
+                });
+
+            modelBuilder.Entity("Global.Models.InfosSaudeUsr", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Alimentacao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HabitosSaude")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("HorasSono")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("InfosSaudeUsr");
+                });
+
+            modelBuilder.Entity("Global.Models.SugestoesSaude", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("DataSugestao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Sugestao")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SugestoesSaude");
                 });
 
             modelBuilder.Entity("Global.Models.Usuario", b =>
@@ -168,6 +233,17 @@ namespace Global.Migrations
                     b.Navigation("Usuario");
                 });
 
+            modelBuilder.Entity("Global.Models.InfosSaudeUsr", b =>
+                {
+                    b.HasOne("Global.Models.Usuario", "Usuario")
+                        .WithMany("ListaInfosSaude")
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
+                });
+
             modelBuilder.Entity("Global.Models.Usuario", b =>
                 {
                     b.HasOne("Global.Models.AtualizacaoSaudePub", "AtSaudePub")
@@ -218,6 +294,8 @@ namespace Global.Migrations
                     b.Navigation("DadosSuplementares");
 
                     b.Navigation("ListaAtualizacaoPub");
+
+                    b.Navigation("ListaInfosSaude");
 
                     b.Navigation("ListaUsuarioAtPub");
 

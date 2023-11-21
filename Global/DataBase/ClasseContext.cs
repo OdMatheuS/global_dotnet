@@ -10,6 +10,11 @@ namespace Global.Models
         public DbSet<DadosSuplementaresUsr> DadosSuplementaresUsrs { get; set; }
         public DbSet<AtualizacaoSaudePub> AtualizacaoSaudePubs { get; set; }
         public DbSet<UsuarioAtualizacaoSaudePub> UsuarioAtualizacaoSaudePubs { get; set; }
+        public DbSet<InfosSaudeUsr> InfosSaudeUsr { get; set; }
+
+        public DbSet<SugestoesSaude> SugestoesSaude { get; set; }
+
+        public DbSet<DuvidasUsuario> DuvidasUsuario { get; set; }
         public ClasseContext(DbContextOptions op) : base(op)
         {
         }
@@ -18,40 +23,11 @@ namespace Global.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // relacionamento 1:1 entre Usuario e DadosSuplementaresUsr
-            /*
-            modelBuilder.Entity<Usuario>()
-                .HasOne(u => u.DadosSuplementares)
-                .WithOne(d => d.Usuario)
-                .HasForeignKey<DadosSuplementaresUsr>(d => d.Id);
-            */
-
-            /*
-            //WIP
-            //chave composta da tabela associativa
-            modelBuilder.Entity<UsuarioAtualizacaoSaudePub>()
-                .HasKey(c => new { c.UsuarioId, c.AtualizacaoSaudePubId});
-
-            //WIP
-            //Configura a relação da tabela associativa com o ator
-            modelBuilder.Entity<UsuarioAtualizacaoSaudePub>()
-                .HasOne(f => f.Usuarios)
-                .WithMany(f => f.UsuarioAtualizacaoSaudePublicas)
-                .HasForeignKey(f => f.UsuarioId);
-
-            //WIP
-            //Configura a relação da tabela associativa com o filme
-            modelBuilder.Entity<UsuarioAtualizacaoSaudePub>()
-               .HasOne(f => f.AtualizacaoSaudePubs)
-               .WithMany(f => f.UsuarioAtualizacaoSaudePublicas)
-               .HasForeignKey(f => f.AtualizacaoSaudePubId);
-
-            base.OnModelCreating(modelBuilder);
-            */
-
+            
+            //1:1
             modelBuilder.Entity<Usuario>()
                 .HasOne(e => e.DadosSuplementares)
-            .WithOne(e => e.Usuario)
+                .WithOne(e => e.Usuario)
                 .HasForeignKey<DadosSuplementaresUsr>(e => e.UsuarioId);
 
             //N:M
@@ -62,13 +38,21 @@ namespace Global.Models
                 .HasOne(ua => ua.UsuarioObj)
                 .WithMany(u => u.ListaUsuarioAtualizacaoSaudePub)
                 .HasForeignKey(ua => ua.UsuarioId)
-                .OnDelete(DeleteBehavior.NoAction); 
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<UsuarioAtualizacaoSaudePub>()
                 .HasOne(ua => ua.AtualizacaoObj)
                 .WithMany(a => a.ListaUsuarioAtualizacaoSaudePub)
                 .HasForeignKey(ua => ua.AtSaudePubId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+
+            //1:N
+            modelBuilder.Entity<InfosSaudeUsr>()
+               .HasOne(i => i.Usuario)
+               .WithMany(u => u.ListaInfosSaude)
+               .HasForeignKey(i => i.UsuarioId)
+               .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);
         }
