@@ -54,6 +54,12 @@ namespace Global.Models
                .HasForeignKey(i => i.UsuarioId)
                .OnDelete(DeleteBehavior.Cascade);
 
+            //1:N
+            modelBuilder.Entity<DuvidasUsuario>()
+               .HasOne(duvida => duvida.Usuario)
+               .WithMany(usuario => usuario.ListaDuvidasUsuario)
+               .HasForeignKey(duvida => duvida.UsuarioId);
+
             base.OnModelCreating(modelBuilder);
         }
 

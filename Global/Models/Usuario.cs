@@ -28,6 +28,7 @@ namespace Global.Models
         // propriedade de navegação para a relação One-to-Many
         public List<InfosSaudeUsr>? ListaInfosSaude { get; } = new();
 
+        public List<DuvidasUsuario> ListaDuvidasUsuario { get; } = new();
 
 
         //public IList<UsuarioAtualizacaoSaudePub> UsuarioAtualizacaoSaudePublicas { get; set; }

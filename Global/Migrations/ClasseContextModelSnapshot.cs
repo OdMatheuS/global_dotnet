@@ -94,7 +94,12 @@ namespace Global.Migrations
                     b.Property<string>("Resposta")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId");
 
                     b.ToTable("DuvidasUsuario");
                 });
@@ -230,6 +235,17 @@ namespace Global.Migrations
                     b.Navigation("Usuario");
                 });
 
+            modelBuilder.Entity("Global.Models.DuvidasUsuario", b =>
+                {
+                    b.HasOne("Global.Models.Usuario", "Usuario")
+                        .WithMany("ListaDuvidasUsuario")
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
+                });
+
             modelBuilder.Entity("Global.Models.InfosSaudeUsr", b =>
                 {
                     b.HasOne("Global.Models.Usuario", "Usuario")
@@ -291,6 +307,8 @@ namespace Global.Migrations
                     b.Navigation("DadosSuplementares");
 
                     b.Navigation("ListaAtualizacaoPub");
+
+                    b.Navigation("ListaDuvidasUsuario");
 
                     b.Navigation("ListaInfosSaude");
 

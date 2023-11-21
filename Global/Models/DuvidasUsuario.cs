@@ -6,6 +6,9 @@
         public string? Pergunta { get; set; }
         public string? Resposta { get; set; }
 
+        // propriedade de navegação para Usuario
+        public int UsuarioId { get; set; }
+        public Usuario Usuario { get; set; }
 
     }
 }

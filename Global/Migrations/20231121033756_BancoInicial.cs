@@ -12,20 +12,6 @@ namespace Global.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "DuvidasUsuario",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Pergunta = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Resposta = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DuvidasUsuario", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "SugestoesSaude",
                 columns: table => new
                 {
@@ -78,6 +64,27 @@ namespace Global.Migrations
                         column: x => x.AtSaudePubId,
                         principalTable: "AtualizacaoSaudePubs",
                         principalColumn: "AtualizacaoSaudePubId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DuvidasUsuario",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Pergunta = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Resposta = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UsuarioId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DuvidasUsuario", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DuvidasUsuario_TB_USUARIO_UsuarioId",
+                        column: x => x.UsuarioId,
+                        principalTable: "TB_USUARIO",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -164,6 +171,11 @@ namespace Global.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_AtualizacaoSaudePubs_UsuarioId",
                 table: "AtualizacaoSaudePubs",
+                column: "UsuarioId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DuvidasUsuario_UsuarioId",
+                table: "DuvidasUsuario",
                 column: "UsuarioId");
 
             migrationBuilder.CreateIndex(
