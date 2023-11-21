@@ -15,12 +15,5 @@ namespace Global.Models
         
         public Usuario UsuarioObj { get; set; } = null!;
         public AtualizacaoSaudePub AtualizacaoObj { get; set; } = null!;
-
-
-        //public Usuario Usuarios { get; set; }
-        //public int UsuarioId { get; set; }
-
-        //public AtualizacaoSaudePub AtualizacaoSaudePubs { get; set; }
-        //public int AtualizacaoSaudePubId { get; set; }
     }
 }

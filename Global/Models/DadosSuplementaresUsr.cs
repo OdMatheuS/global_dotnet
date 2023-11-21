@@ -28,7 +28,6 @@ namespace Global.Models
         {
             decimal imc = Peso / (Altura * Altura);
 
-            // Classificação do IMC
             string classificacao;
             if (imc < 18)
             {
@@ -50,11 +49,6 @@ namespace Global.Models
             return classificacao;
         }
 
-
-        // chave estrangeira para Usuario
-        //public int Id { get; set; }
-        // propriedade de navegação para Usuario
-        //public Usuario Usuario { get; set; }
     }
     public enum Sexo
     {

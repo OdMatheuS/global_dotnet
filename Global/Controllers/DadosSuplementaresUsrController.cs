@@ -112,12 +112,9 @@ namespace Global.Controllers
             return RedirectToAction("Listar");
         }
 
-        //envia as informações dos usuários cadastrados para preencher as options do select
         private void CarregarUsuarios()
         {
-            //recuperar todos usuários cadastrados
             var lista = _context.Usuarios.ToList();
-            //enviar o objeto que preenche o select de usuários cadastrados
             ViewBag.usuarios = new SelectList(lista, "Id", "Nome");
         }
 

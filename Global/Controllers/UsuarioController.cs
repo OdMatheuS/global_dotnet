@@ -116,12 +116,10 @@ namespace Global.Controllers
             return View("Listar", lista);
         }
 
-        //envia as informações da campanhas para preencher as options do select
+        
         private void CarregarCampanhas()
         {
-            //recuperar todas as campanhas
             var lista = _context.AtualizacaoSaudePubs.ToList();
-            //enviar o objeto que preenche o select de campanhas
             ViewBag.campanhas = new SelectList(lista, "AtualizacaoSaudePubId", "Titulo");
         }
 
