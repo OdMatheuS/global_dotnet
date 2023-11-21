@@ -92,10 +92,8 @@ namespace Global.Controllers
             if (usuarioExistente != null)
             {
                 usuarioExistente.Nome = usuario.Nome;
-                usuarioExistente.Idade = usuario.Idade;
-                usuarioExistente.Peso = usuario.Peso;
-                usuarioExistente.Altura = usuario.Altura;
-                usuarioExistente.TempoSono = usuario.TempoSono;
+                usuarioExistente.Email = usuario.Email;
+                usuarioExistente.HabitosSaude = usuario.HabitosSaude;
                 usuarioExistente.PraticaEsporte = usuario.PraticaEsporte;
 
                 _context.SaveChanges();
@@ -118,12 +116,12 @@ namespace Global.Controllers
             return View("Listar", lista);
         }
 
-        //Envia as informações da campanhas para preencher as options do select
+        //envia as informações da campanhas para preencher as options do select
         private void CarregarCampanhas()
         {
-            //Recuperar todas as campanhas
+            //recuperar todas as campanhas
             var lista = _context.AtualizacaoSaudePubs.ToList();
-            //Enviar o objeto que preenche o select de campanhas
+            //enviar o objeto que preenche o select de campanhas
             ViewBag.campanhas = new SelectList(lista, "AtualizacaoSaudePubId", "Titulo");
         }
 

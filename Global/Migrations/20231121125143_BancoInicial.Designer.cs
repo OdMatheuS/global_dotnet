@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Global.Migrations
 {
     [DbContext(typeof(ClasseContext))]
-    [Migration("20231121033756_BancoInicial")]
+    [Migration("20231121125143_BancoInicial")]
     partial class BancoInicial
     {
         /// <inheritdoc />
@@ -161,29 +161,20 @@ namespace Global.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal>("Altura")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<int>("AtSaudePubId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HabitosSaude")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Idade")
-                        .HasColumnType("int");
-
                     b.Property<string>("Nome")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Peso")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<bool>("PraticaEsporte")
                         .HasColumnType("bit");
-
-                    b.Property<decimal>("TempoSono")
-                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

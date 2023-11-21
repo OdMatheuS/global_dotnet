@@ -48,10 +48,7 @@ namespace Global.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Idade = table.Column<int>(type: "int", nullable: false),
-                    Peso = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Altura = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    TempoSono = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PraticaEsporte = table.Column<bool>(type: "bit", nullable: false),
                     HabitosSaude = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AtSaudePubId = table.Column<int>(type: "int", nullable: false)

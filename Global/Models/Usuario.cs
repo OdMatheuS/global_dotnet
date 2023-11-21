@@ -9,10 +9,8 @@ namespace Global.Models
     {
         public int Id { get; set; }
         public string? Nome { get; set; }
-        public int Idade { get; set; }
-        public decimal Peso { get; set; }
-        public decimal Altura { get; set; }
-        public decimal TempoSono { get; set; }
+        public string? Email { get; set; }
+                
         public bool PraticaEsporte { get; set; }
         public string? HabitosSaude { get; set; }
         public virtual DadosSuplementaresUsr? DadosSuplementares { get; set; }
@@ -28,13 +26,7 @@ namespace Global.Models
         // propriedade de navegação para a relação One-to-Many
         public List<InfosSaudeUsr>? ListaInfosSaude { get; } = new();
 
-        public List<DuvidasUsuario> ListaDuvidasUsuario { get; } = new();
-
-
-        //public IList<UsuarioAtualizacaoSaudePub> UsuarioAtualizacaoSaudePublicas { get; set; }
-
-        // propriedade de navegação para DadosSuplementaresUsr
-        //public DadosSuplementaresUsr DadosSuplementares { get; set; }
+        public List<DuvidasUsuario> ListaDuvidasUsuario { get; } = new();        
 
     }
 }

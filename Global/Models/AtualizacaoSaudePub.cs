@@ -18,14 +18,5 @@ namespace Global.Models
         public List<UsuarioAtualizacaoSaudePub>? ListaAtualizacao { get; } = new();
         public List<UsuarioAtualizacaoSaudePub>? ListaUsuarioAtualizacaoSaudePub { get; } = new();
         
-
-
-
-        //        public IList<UsuarioAtualizacaoSaudePub> UsuarioAtualizacaoSaudePublicas { get; set; }
-
-        // chave estrangeira para Usuario
-        //public int Id { get; set; }
-        // propriedade de navegação para Usuario
-        //public Usuario Usuario { get; set; }
-    }
+        }
 }
