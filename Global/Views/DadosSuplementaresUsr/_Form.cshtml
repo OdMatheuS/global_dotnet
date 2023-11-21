@@ -15,14 +15,14 @@
     <input asp-for="Altura" class="form-control" />
 </div>
 <div class="mb-3">
-    <label asp-for="UsuarioId">Usuário Id</label>
-    <input asp-for="UsuarioId" class="form-control" />
-</div>
-
-<div class="mb-3">
     <label asp-for="Sexo"></label>
     <select asp-for="Sexo" asp-items="@Html.GetEnumSelectList<Sexo>()" class="form-control">
         <option>Selecione</option>
     </select>
 </div>
-
+<div class="mb-3">
+    <label asp-for="UsuarioId">Usuários</label>
+    <select class="form-select" asp-for="UsuarioId" asp-items="@ViewBag.usuarios">
+        <option>Selecione</option>
+    </select>
+</div>

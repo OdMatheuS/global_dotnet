@@ -1,5 +1,6 @@
 ﻿using Global.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Runtime.Serialization;
@@ -18,6 +19,7 @@ namespace Global.Controllers
         [HttpGet]
         public IActionResult Cadastrar()
         {
+            CarregarUsuarios();
             return View();
         }
 
@@ -40,7 +42,7 @@ namespace Global.Controllers
 
         public IActionResult Listar()
         {
-            var dadosSup = _context.DadosSuplementaresUsrs.ToList();
+            var dadosSup = _context.DadosSuplementaresUsrs.Include(d => d.Usuario).ToList();
             return View(dadosSup);
         }
 
@@ -69,6 +71,7 @@ namespace Global.Controllers
         [HttpGet]
         public IActionResult Editar(int id)
         {
+            CarregarUsuarios();
             var dadosSup = _context.DadosSuplementaresUsrs.Find(id);
             _context.DadosSuplementaresUsrs.Update(dadosSup);
             _context.SaveChanges();
@@ -108,6 +111,15 @@ namespace Global.Controllers
 
             return RedirectToAction("Listar");
         }
-      
+
+        //envia as informações dos usuários cadastrados para preencher as options do select
+        private void CarregarUsuarios()
+        {
+            //recuperar todos usuários cadastrados
+            var lista = _context.Usuarios.ToList();
+            //enviar o objeto que preenche o select de usuários cadastrados
+            ViewBag.usuarios = new SelectList(lista, "Id", "Nome");
+        }
+
     }
 }

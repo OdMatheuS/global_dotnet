@@ -42,7 +42,7 @@ namespace Global.Controllers
 
         public IActionResult Listar()
         {
-            var usuarios = _context.Usuarios.ToList();
+            var usuarios = _context.Usuarios.Include(d => d.AtSaudePub).ToList();
             return View(usuarios);
         }
 

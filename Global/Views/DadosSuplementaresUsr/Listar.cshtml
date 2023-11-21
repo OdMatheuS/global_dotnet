@@ -25,6 +25,7 @@
                 <th>Peso</th>
                 <th>Altura</th>
                 <th>Sexo</th>
+                <th>Usuário</th>
                 <th></th>
             </tr>
         </thead>
@@ -37,6 +38,7 @@
                     <td>@user.Peso</td>
                     <td>@user.Altura</td>
                     <td>@user.Sexo</td>
+                    <td>@user.Usuario?.Nome</td>
                     <td></td>
                     <td>
                         <a asp-action="Editar" asp-route-id="@user.DadosSuplementaresUsrId" class="btn btn-primary">Editar</a>
