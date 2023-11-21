@@ -13,8 +13,8 @@ namespace Global.Models
         public int UsuarioId { get; set; }
         public int AtSaudePubId { get; set; }
         
-        public Usuario Post { get; set; } = null!;
-        public AtualizacaoSaudePub Tag { get; set; } = null!;
+        public Usuario UsuarioObj { get; set; } = null!;
+        public AtualizacaoSaudePub AtualizacaoObj { get; set; } = null!;
 
 
         //public Usuario Usuarios { get; set; }

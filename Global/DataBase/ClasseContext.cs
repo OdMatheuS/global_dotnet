@@ -52,13 +52,22 @@ namespace Global.Models
             modelBuilder.Entity<Usuario>()
                 .HasOne(e => e.DadosSuplementares)
             .WithOne(e => e.Usuario)
-                .HasForeignKey<DadosSuplementaresUsr>(e => e.UsuarioId)
-            .IsRequired();
+                .HasForeignKey<DadosSuplementaresUsr>(e => e.UsuarioId);
+
+            //N:M
+            modelBuilder.Entity<UsuarioAtualizacaoSaudePub>()
+               .HasKey(churros => new { churros.AtSaudePubId, churros.UsuarioId });
+
+            modelBuilder.Entity<UsuarioAtualizacaoSaudePub>()
+                .HasOne(e => e.UsuarioObj)
+                .WithMany(e => e.ListaUsuarioAtPub)
+                .HasForeignKey(f => f.Id);
 
 
-            modelBuilder.Entity<Usuario>()
-                .HasMany(e => e.Tags)
-                .WithMany(e => e.Posts);
+            modelBuilder.Entity<UsuarioAtualizacaoSaudePub>()
+               .HasOne(f => f.AtualizacaoObj)
+               .WithMany(f => f.ListaAtualizacao)
+               .HasForeignKey(f => f.UsuarioId);
 
             base.OnModelCreating(modelBuilder);
         }

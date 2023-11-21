@@ -19,7 +19,13 @@
 </div>
 <div class="mb-3">
     <label asp-for="TempoSono">Tempo de Sono</label>
-    <input asp-for="TempoSono" class="form-control"/>
+    <input asp-for="TempoSono" class="form-control" />
+</div>
+<div class="mb-3">
+    <label asp-for="AtSaudePub">Campanha Saúde Pública</label>
+    <select class="form-select" asp-for="AtSaudePubId" asp-items="@ViewBag.campanhas">
+        <option>Selecione</option>
+    </select>
 </div>
 
 

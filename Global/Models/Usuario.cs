@@ -15,11 +15,14 @@ namespace Global.Models
         public decimal TempoSono { get; set; }
         public bool PraticaEsporte { get; set; }
         public string? HabitosSaude { get; set; }
-        public DadosSuplementaresUsr? DadosSuplementares { get; set; }
+        public virtual DadosSuplementaresUsr? DadosSuplementares { get; set; }
                 
-        public List<AtualizacaoSaudePub> Tags { get; } = new();
+        public List<AtualizacaoSaudePub> ListaAtualizacaoPub { get; } = new();
 
-        public List<UsuarioAtualizacaoSaudePub> PostTags { get; } = new();
+        public List<UsuarioAtualizacaoSaudePub> ListaUsuarioAtPub { get; } = new();
+
+        public AtualizacaoSaudePub AtSaudePub { get; set; }
+        public int AtSaudePubId { get; set; }
 
 
 

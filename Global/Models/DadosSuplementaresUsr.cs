@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection.Metadata;
+using System.Text.Json.Serialization;
 
 namespace Global.Models
 {
@@ -13,7 +14,8 @@ namespace Global.Models
         public Sexo Sexo{ get; set; }
         public int Idade { get; set; }
 
-        public Usuario Usuario { get; set; }
+        [JsonIgnore]
+        public virtual Usuario? Usuario { get; set; }
         public int UsuarioId { get; set; }
 
 

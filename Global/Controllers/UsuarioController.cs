@@ -1,5 +1,6 @@
 ﻿using Global.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Runtime.Serialization;
@@ -113,6 +114,15 @@ namespace Global.Controllers
         {
             var lista = _context.Usuarios.Where(f => f.Nome.Contains(valor)).ToList();
             return View("Listar", lista);
+        }
+
+        //Envia as informações da produtora para preencher as options do select
+        private void CarregarCampanhas()
+        {
+            //Recuperar todas as produtoas
+            var lista = _context.AtualizacaoSaudePubs.ToList();
+            //Enviar o objeto que preenche o select de campanhas
+            ViewBag.campanhas = new SelectList(lista, "AtSaudePubId", "Titulo");
         }
 
 
