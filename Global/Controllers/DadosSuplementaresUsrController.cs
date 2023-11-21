@@ -83,20 +83,24 @@ namespace Global.Controllers
 
         [HttpPost]
         public IActionResult Editar(DadosSuplementaresUsr dadosSup)
+
         {
-            var dadosSupExistente = _context.DadosSuplementaresUsrs.Find(dadosSup.DadosSuplementaresUsrId);
+         
+            string a = HttpContext.Request.Path.ToString();
+            int id = int.TryParse(a.Split('/').LastOrDefault(), out int temp) ? temp : default;
+            var dadosSupExistente = _context.DadosSuplementaresUsrs.Find(id);
 
             if (dadosSupExistente != null)
             {
                 
-                dadosSupExistente.Idade = dadosSup.Idade;
-                dadosSupExistente.Peso = dadosSup.Peso;
-                dadosSupExistente.Altura = dadosSup.Altura;
-                dadosSupExistente.Sexo = dadosSup.Sexo;
-                _context.SaveChanges();
+                    dadosSupExistente.Idade = dadosSup.Idade;
+                    dadosSupExistente.Peso = dadosSup.Peso;
+                    dadosSupExistente.Altura = dadosSup.Altura;
+                    dadosSupExistente.Sexo = dadosSup.Sexo;
+                    _context.SaveChanges();
 
-                TempData["msg"] = "Dados Suplementares atualizado com sucesso!";
-            }
+                    TempData["msg"] = "Dados Suplementares atualizado com sucesso!";
+                }
             else
             {
                 TempData["msg"] = "Dados Suplementares não encontrado.";
