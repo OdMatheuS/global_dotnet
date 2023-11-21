@@ -26,6 +26,8 @@
                 <th>Altura</th>
                 <th>Sexo</th>
                 <th>Usuário</th>
+                <th>Valor IMC</th>
+                <th>Classificação IMC</th>
                 <th></th>
             </tr>
         </thead>
@@ -39,6 +41,8 @@
                     <td>@user.Altura</td>
                     <td>@user.Sexo</td>
                     <td>@user.Usuario?.Nome</td>
+                    <td>@user.CalcularIMC()</td>
+                    <td>@user.ClassificarIMC()</td>
                     <td></td>
                     <td>
                         <a asp-action="Editar" asp-route-id="@user.DadosSuplementaresUsrId" class="btn btn-primary">Editar</a>

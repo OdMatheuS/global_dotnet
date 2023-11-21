@@ -18,6 +18,38 @@ namespace Global.Models
         public virtual Usuario? Usuario { get; set; }
         public int UsuarioId { get; set; }
 
+        public string CalcularIMC()
+        {
+            decimal imc = Peso / (Altura * Altura);
+            return imc.ToString("N2");
+        }
+
+        public string ClassificarIMC()
+        {
+            decimal imc = Peso / (Altura * Altura);
+
+            // Classificação do IMC
+            string classificacao;
+            if (imc < 18)
+            {
+                classificacao = "Magreza";
+            }
+            else if (imc >= 18 && imc <= 24)
+            {
+                classificacao = "Normal";
+            }
+            else if (imc > 24 && imc <= 30)
+            {
+                classificacao = "Sobrepeso";
+            }
+            else
+            {
+                classificacao = "Obesidade";
+            }
+
+            return classificacao;
+        }
+
 
         // chave estrangeira para Usuario
         //public int Id { get; set; }
@@ -28,4 +60,7 @@ namespace Global.Models
     {
         Feminino, Masculino
     }
+
+    
+
 }
