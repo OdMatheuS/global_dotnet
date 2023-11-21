@@ -1,7 +1,7 @@
-﻿@model List<Usuario>
+﻿@model List<DadosSuplementaresUsr>
 
 @{
-    ViewData["Title"] = "Listagem de Usuário";
+    ViewData["Title"] = "Listagem Dados Suplementares";
 }
 
 @if (TempData["msg"] != null)
@@ -11,20 +11,9 @@
     </div>
 }
 
-<h1>Listagem de Usuário</h1>
+<h1>Listagem Dados Suplementares</h1>
 
-<br />
-<h5>Pesquisar usuário pelo nome</h5>
-<form class="row mb-3" asp-action="BuscarPorNome" asp-controller="Usuario" method="get">
-    <div class="col-4">
-        <input type="text" class="form-control" name="valor"
-               placeholder="Digite o nome" />
-    </div>
-    <div class="col-2">
-        <button class="btn btn-primary">Pesquisar</button>
-    </div>
-</form>
-<br />
+
 
 @if (Model != null && Model.Count > 0)
 {
@@ -32,34 +21,36 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Pratica Esporte</th>
-                <th>Habitos Saúde</th>
-                <th>Campanha de Saúde</th>
-                <th></th>
+                <th>Idade</th>
+                <th>Peso</th>
+                <th>Altura</th>
+                <th>Sexo</th>
+                <th>Usuário</th>
+                <th>Valor IMC</th>
+                <th>Classificação IMC</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var user in Model)
             {
                 <tr>
-                    <td>@user.Id</td>
-                    <td>@user.Nome</td>
-                    <td>@user.Email</td>
-                    <td>@user.PraticaEsporte</td>
-                    <td>@user.HabitosSaude</td>
-                    <td>@user.AtSaudePub?.Titulo</td>
-                    <td></td>
+                    <td>@user.DadosSuplementaresUsrId</td>
+                    <td>@user.Idade</td>
+                    <td>@user.Peso</td>
+                    <td>@user.Altura</td>
+                    <td>@user.Sexo</td>
+                    <td>@user.Usuario?.Nome</td>
+                    <td>@user.CalcularIMC()</td>
+                    <td>@user.ClassificarIMC()</td>
                     <td>
-                        <a asp-action="Editar" asp-route-id="@user.Id" class="btn btn-primary">Editar</a>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalExcluir_@user.Id">
+                        <a asp-action="Editar" asp-route-id="@user.DadosSuplementaresUsrId" class="btn btn-primary">Editar</a>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalExcluir_@user.DadosSuplementaresUsrId">
                             Excluir
                         </button>
                     </td>
                 </tr>
                 <!-- modal de excluir -->
-                <div class="modal fade" id="modalExcluir_@user.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="modalExcluir_@user.DadosSuplementaresUsrId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -67,10 +58,10 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                Deseja realmente excluir o usuário "@user.Nome"?
+                                Deseja realmente excluir o usuário "@user.DadosSuplementaresUsrId"?
                             </div>
                             <div class="modal-footer">
-                                <form asp-action="Excluir" asp-route-id="@user.Id" method="post">
+                                <form asp-action="Excluir" asp-route-id="@user.DadosSuplementaresUsrId" method="post">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                     <button type="submit" class="btn btn-danger">Excluir</button>
                                 </form>
@@ -84,7 +75,7 @@
 }
 else
 {
-    <p>Nenhum usuário encontrado.</p>
+    <p>Nenhum dado encontrado.</p>
 }
 
 <script>

@@ -1,0 +1,20 @@
+﻿@model Global.Models.AtualizacaoSaudePub
+
+<h2>Cadastrar Nova Atualização de Saúde Pública</h2>
+
+<form asp-action="Cadastrar" method="post">
+    <div class="form-group">
+        <label for="Titulo">Título:</label>
+        <input type="text" class="form-control" id="Titulo" name="Titulo" value="@Model.Titulo" />
+    </div>
+    <div class="form-group">
+        <label for="Descricao">Descrição:</label>
+        <textarea class="form-control" id="Descricao" name="Descricao">@Model.Descricao</textarea>
+    </div>
+    <div class="form-group">
+        <label for="DataInfoSaude">Data da Informação de Saúde:</label>
+        <input type="date" class="form-control" id="DataInfoSaude" name="DataInfoSaude" value="@Model.DataInfoSaude.ToString("dd-MM-yyyy")" />
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Cadastrar</button>
+</form>

@@ -6,20 +6,19 @@
     <input asp-for="Nome" class="form-control" />
 </div>
 <div class="mb-3">
-    <label asp-for="Idade"></label>
-    <input asp-for="Idade" class="form-control" />
+    <label asp-for="Email"></label>
+    <input asp-for="Email" class="form-control" />
+</div>
+
+<div class="mb-3">
+    <label asp-for="HabitosSaude">Habitos de Saúde</label>
+    <input asp-for="HabitosSaude" class="form-control" />
 </div>
 <div class="mb-3">
-    <label asp-for="Peso"></label>
-    <input asp-for="Peso" class="form-control" />
-</div>
-<div class="mb-3">
-    <label asp-for="Altura"></label>
-    <input asp-for="Altura" class="form-control" />
-</div>
-<div class="mb-3">
-    <label asp-for="TempoSono">Tempo de Sono</label>
-    <input asp-for="TempoSono" class="form-control"/>
+    <label asp-for="AtSaudePub">Campanha Saúde Pública</label>
+    <select class="form-select" asp-for="AtSaudePubId" asp-items="@ViewBag.campanhas">
+        <option>Selecione</option>
+    </select>
 </div>
 
 

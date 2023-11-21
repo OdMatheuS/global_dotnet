@@ -1,5 +1,6 @@
 ﻿using Global.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Runtime.Serialization;
@@ -18,6 +19,7 @@ namespace Global.Controllers
         [HttpGet]
         public IActionResult Cadastrar()
         {
+            CarregarCampanhas();
             return View();
         }
 
@@ -40,7 +42,7 @@ namespace Global.Controllers
 
         public IActionResult Listar()
         {
-            var usuarios = _context.Usuarios.ToList();
+            var usuarios = _context.Usuarios.Include(d => d.AtSaudePub).ToList();
             return View(usuarios);
         }
 
@@ -69,6 +71,7 @@ namespace Global.Controllers
         [HttpGet]
         public IActionResult Editar(int id)
         {
+            CarregarCampanhas();
             var usuario = _context.Usuarios.Find(id);
             _context.Usuarios.Update(usuario);
             _context.SaveChanges();
@@ -89,10 +92,8 @@ namespace Global.Controllers
             if (usuarioExistente != null)
             {
                 usuarioExistente.Nome = usuario.Nome;
-                usuarioExistente.Idade = usuario.Idade;
-                usuarioExistente.Peso = usuario.Peso;
-                usuarioExistente.Altura = usuario.Altura;
-                usuarioExistente.TempoSono = usuario.TempoSono;
+                usuarioExistente.Email = usuario.Email;
+                usuarioExistente.HabitosSaude = usuario.HabitosSaude;
                 usuarioExistente.PraticaEsporte = usuario.PraticaEsporte;
 
                 _context.SaveChanges();
@@ -113,6 +114,13 @@ namespace Global.Controllers
         {
             var lista = _context.Usuarios.Where(f => f.Nome.Contains(valor)).ToList();
             return View("Listar", lista);
+        }
+
+        
+        private void CarregarCampanhas()
+        {
+            var lista = _context.AtualizacaoSaudePubs.ToList();
+            ViewBag.campanhas = new SelectList(lista, "AtualizacaoSaudePubId", "Titulo");
         }
 
 
