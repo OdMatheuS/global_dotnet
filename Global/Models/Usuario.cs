@@ -17,12 +17,13 @@ namespace Global.Models
         public string? HabitosSaude { get; set; }
         public virtual DadosSuplementaresUsr? DadosSuplementares { get; set; }
                 
-        public List<AtualizacaoSaudePub> ListaAtualizacaoPub { get; } = new();
+        public List<AtualizacaoSaudePub>? ListaAtualizacaoPub { get; } = new();
 
-        public List<UsuarioAtualizacaoSaudePub> ListaUsuarioAtPub { get; } = new();
+        public List<UsuarioAtualizacaoSaudePub>? ListaUsuarioAtPub { get; } = new();
 
-        public AtualizacaoSaudePub AtSaudePub { get; set; }
+        public AtualizacaoSaudePub? AtSaudePub { get; set; }
         public int AtSaudePubId { get; set; }
+        public List<UsuarioAtualizacaoSaudePub>? ListaUsuarioAtualizacaoSaudePub { get; } = new();
 
 
 

@@ -14,8 +14,12 @@ namespace Global.Models
         public DateTime DataInfoSaude { get; set; }
 
         [NotMapped]
-        public List<Usuario> ListaUsuario { get; } = new();
-        public List<UsuarioAtualizacaoSaudePub> ListaAtualizacao { get; } = new();
+        public List<Usuario>? ListaUsuario { get; } = new();
+        public List<UsuarioAtualizacaoSaudePub>? ListaAtualizacao { get; } = new();
+        public List<UsuarioAtualizacaoSaudePub>? ListaUsuarioAtualizacaoSaudePub { get; } = new();
+        
+
+
 
         //        public IList<UsuarioAtualizacaoSaudePub> UsuarioAtualizacaoSaudePublicas { get; set; }
 

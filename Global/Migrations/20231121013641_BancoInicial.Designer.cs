@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Global.Migrations
 {
     [DbContext(typeof(ClasseContext))]
-    [Migration("20231120233930_BancoInicial")]
+    [Migration("20231121013641_BancoInicial")]
     partial class BancoInicial
     {
         /// <inheritdoc />
@@ -24,21 +24,6 @@ namespace Global.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("AtualizacaoSaudePubUsuario", b =>
-                {
-                    b.Property<int>("ListaAtualizacaoPubAtualizacaoSaudePubId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ListaUsuarioId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ListaAtualizacaoPubAtualizacaoSaudePubId", "ListaUsuarioId");
-
-                    b.HasIndex("ListaUsuarioId");
-
-                    b.ToTable("AtualizacaoSaudePubUsuario");
-                });
 
             modelBuilder.Entity("Global.Models.AtualizacaoSaudePub", b =>
                 {
@@ -57,7 +42,12 @@ namespace Global.Migrations
                     b.Property<string>("Titulo")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("UsuarioId")
+                        .HasColumnType("int");
+
                     b.HasKey("AtualizacaoSaudePubId");
+
+                    b.HasIndex("UsuarioId");
 
                     b.ToTable("AtualizacaoSaudePubs");
                 });
@@ -104,6 +94,9 @@ namespace Global.Migrations
                     b.Property<decimal>("Altura")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<int>("AtSaudePubId")
+                        .HasColumnType("int");
+
                     b.Property<string>("HabitosSaude")
                         .HasColumnType("nvarchar(max)");
 
@@ -124,6 +117,8 @@ namespace Global.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AtSaudePubId");
+
                     b.ToTable("TB_USUARIO");
                 });
 
@@ -135,31 +130,31 @@ namespace Global.Migrations
                     b.Property<int>("UsuarioId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("AtualizacaoSaudePubId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UsuarioId1")
                         .HasColumnType("int");
 
                     b.HasKey("AtSaudePubId", "UsuarioId");
 
-                    b.HasIndex("Id");
+                    b.HasIndex("AtualizacaoSaudePubId");
 
                     b.HasIndex("UsuarioId");
+
+                    b.HasIndex("UsuarioId1");
 
                     b.ToTable("TB_Usuario_Atualizacao_Saude_Pub");
                 });
 
-            modelBuilder.Entity("AtualizacaoSaudePubUsuario", b =>
+            modelBuilder.Entity("Global.Models.AtualizacaoSaudePub", b =>
                 {
-                    b.HasOne("Global.Models.AtualizacaoSaudePub", null)
-                        .WithMany()
-                        .HasForeignKey("ListaAtualizacaoPubAtualizacaoSaudePubId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Global.Models.Usuario", null)
-                        .WithMany()
-                        .HasForeignKey("ListaUsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("ListaAtualizacaoPub")
+                        .HasForeignKey("UsuarioId");
                 });
 
             modelBuilder.Entity("Global.Models.DadosSuplementaresUsr", b =>
@@ -173,19 +168,38 @@ namespace Global.Migrations
                     b.Navigation("Usuario");
                 });
 
-            modelBuilder.Entity("Global.Models.UsuarioAtualizacaoSaudePub", b =>
+            modelBuilder.Entity("Global.Models.Usuario", b =>
                 {
-                    b.HasOne("Global.Models.Usuario", "UsuarioObj")
-                        .WithMany("ListaUsuarioAtPub")
-                        .HasForeignKey("Id")
+                    b.HasOne("Global.Models.AtualizacaoSaudePub", "AtSaudePub")
+                        .WithMany()
+                        .HasForeignKey("AtSaudePubId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("AtSaudePub");
+                });
+
+            modelBuilder.Entity("Global.Models.UsuarioAtualizacaoSaudePub", b =>
+                {
                     b.HasOne("Global.Models.AtualizacaoSaudePub", "AtualizacaoObj")
-                        .WithMany("ListaAtualizacao")
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithMany("ListaUsuarioAtualizacaoSaudePub")
+                        .HasForeignKey("AtSaudePubId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.HasOne("Global.Models.AtualizacaoSaudePub", null)
+                        .WithMany("ListaAtualizacao")
+                        .HasForeignKey("AtualizacaoSaudePubId");
+
+                    b.HasOne("Global.Models.Usuario", "UsuarioObj")
+                        .WithMany("ListaUsuarioAtualizacaoSaudePub")
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Global.Models.Usuario", null)
+                        .WithMany("ListaUsuarioAtPub")
+                        .HasForeignKey("UsuarioId1");
 
                     b.Navigation("AtualizacaoObj");
 
@@ -195,13 +209,19 @@ namespace Global.Migrations
             modelBuilder.Entity("Global.Models.AtualizacaoSaudePub", b =>
                 {
                     b.Navigation("ListaAtualizacao");
+
+                    b.Navigation("ListaUsuarioAtualizacaoSaudePub");
                 });
 
             modelBuilder.Entity("Global.Models.Usuario", b =>
                 {
                     b.Navigation("DadosSuplementares");
 
+                    b.Navigation("ListaAtualizacaoPub");
+
                     b.Navigation("ListaUsuarioAtPub");
+
+                    b.Navigation("ListaUsuarioAtualizacaoSaudePub");
                 });
 #pragma warning restore 612, 618
         }

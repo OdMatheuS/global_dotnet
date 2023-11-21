@@ -19,6 +19,7 @@ namespace Global.Controllers
         [HttpGet]
         public IActionResult Cadastrar()
         {
+            CarregarCampanhas();
             return View();
         }
 
@@ -70,6 +71,7 @@ namespace Global.Controllers
         [HttpGet]
         public IActionResult Editar(int id)
         {
+            CarregarCampanhas();
             var usuario = _context.Usuarios.Find(id);
             _context.Usuarios.Update(usuario);
             _context.SaveChanges();
@@ -116,13 +118,13 @@ namespace Global.Controllers
             return View("Listar", lista);
         }
 
-        //Envia as informações da produtora para preencher as options do select
+        //Envia as informações da campanhas para preencher as options do select
         private void CarregarCampanhas()
         {
-            //Recuperar todas as produtoas
+            //Recuperar todas as campanhas
             var lista = _context.AtualizacaoSaudePubs.ToList();
             //Enviar o objeto que preenche o select de campanhas
-            ViewBag.campanhas = new SelectList(lista, "AtSaudePubId", "Titulo");
+            ViewBag.campanhas = new SelectList(lista, "AtualizacaoSaudePubId", "Titulo");
         }
 
 

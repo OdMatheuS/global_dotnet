@@ -59,15 +59,16 @@ namespace Global.Models
                .HasKey(churros => new { churros.AtSaudePubId, churros.UsuarioId });
 
             modelBuilder.Entity<UsuarioAtualizacaoSaudePub>()
-                .HasOne(e => e.UsuarioObj)
-                .WithMany(e => e.ListaUsuarioAtPub)
-                .HasForeignKey(f => f.Id);
-
+                .HasOne(ua => ua.UsuarioObj)
+                .WithMany(u => u.ListaUsuarioAtualizacaoSaudePub)
+                .HasForeignKey(ua => ua.UsuarioId)
+                .OnDelete(DeleteBehavior.NoAction); 
 
             modelBuilder.Entity<UsuarioAtualizacaoSaudePub>()
-               .HasOne(f => f.AtualizacaoObj)
-               .WithMany(f => f.ListaAtualizacao)
-               .HasForeignKey(f => f.UsuarioId);
+                .HasOne(ua => ua.AtualizacaoObj)
+                .WithMany(a => a.ListaUsuarioAtualizacaoSaudePub)
+                .HasForeignKey(ua => ua.AtSaudePubId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             base.OnModelCreating(modelBuilder);
         }
